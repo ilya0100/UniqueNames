@@ -4,7 +4,7 @@ import logging
 from subprocess import PIPE, Popen
 
 def test_base_options():
-    command = "/home/ilya0100/documents/MultiThreadCPP/UniqueNames/build/app/demo_app"
+    command = "./build/app/demo_app"
     logging.debug(f'Run command {command}')
     
     p = Popen(command, stdout=PIPE, stderr=PIPE, stdin=PIPE)
