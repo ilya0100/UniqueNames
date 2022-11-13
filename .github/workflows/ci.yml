@@ -7,6 +7,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.0.0
 
+    - name: Install gtest
+      run: sudo apt update && sudo apt install libgtest-dev
+
     - name: Build project
       run: make build
 
