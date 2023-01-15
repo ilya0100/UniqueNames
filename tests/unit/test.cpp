@@ -41,6 +41,18 @@ TEST(NamesHolderTest, RenameExisting) {
     ASSERT_FALSE(names.rename(id, name));
 }
 
+TEST(NamesHolderTest, RenameOld) {
+NamesHolder names;
+std::size_t first_id = names.create();
+std::string first_name = names.get(first_id);
+
+std::size_t second_id = names.create();
+std::string second_name = names.get(second_id);
+
+ASSERT_TRUE(names.rename(first_id, "new_name"));
+ASSERT_TRUE(names.rename(second_id, first_name));
+}
+
 TEST(NamesHolderTest, Erase) {
     NamesHolder names;
     int size = 5;
