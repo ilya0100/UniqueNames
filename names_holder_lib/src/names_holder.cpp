@@ -23,7 +23,9 @@ bool NamesHolder::rename(std::size_t id, const std::string& new_name) {
     auto item_it = items.find(id);
     if (item_it == items.end())
         throw std::out_of_range("id not found");
-    
+
+    existing_names.erase((*item_it).second);
+
     items[id] = new_name;
     existing_names.insert(new_name);
     return true;
