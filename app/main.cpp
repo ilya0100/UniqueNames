@@ -29,45 +29,50 @@ int main() {
         int command = 0;
         std::cin >> command;
 
-        switch (command) {
-        case CREATE:
-            std::cout << names.create() << std::endl;
-            break;
+        try {
+            switch (command) {
+            case CREATE:
+                std::cout << names.create() << std::endl;
+                break;
 
-        case RENAME: {
-            std::string new_name;
-            std::size_t id = 0;
+            case RENAME: {
+                std::string new_name;
+                std::size_t id = 0;
 
-            std::cin >> id >> new_name;
-            if (!names.rename(id, new_name))
-                std::cout << "Name: " << new_name << " already exists" << std::endl;
-            break;
+                std::cin >> id >> new_name;
+                if (!names.rename(id, new_name))
+                    std::cout << "Name: " << new_name << " already exists" << std::endl;
+                break;
+            }
+
+            case ERASE: {
+                std::size_t id = 0;
+                std::cin >> id;
+                names.erase(id);
+                break;
+            }
+
+            case GET: {
+                std::size_t id = 0;
+                std::cin >> id;
+                std::cout << names.get(id) << std::endl;
+                break;
+            }
+
+            case EXIT:
+                close_app = true;
+                break;
+
+            default:
+                std::cout << "Unknown command" << std::endl;
+                #ifdef NDEBUG
+                    print_options();
+                #endif
+                break;
+            }
         }
-
-        case ERASE: {
-            std::size_t id = 0;
-            std::cin >> id;
-            names.erase(id);
-            break;
-        }
-
-        case GET: {
-            std::size_t id = 0;
-            std::cin >> id;
-            std::cout << names.get(id) << std::endl;
-            break;
-        }
-
-        case EXIT:
-            close_app = true;
-            break;
-
-        default:
-            std::cout << "Unknown command" << std::endl;
-            #ifdef NDEBUG
-                print_options();
-            #endif
-            break;
+        catch(const std::out_of_range& e) {
+            std::cerr << e.what() << '\n';
         }
     }
     return 0;
